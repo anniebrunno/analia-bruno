@@ -11,6 +11,7 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
+section{scroll-margin-top:72px}
 body{margin:0;background:#FFFFFF;color:var(--tinta);font-family:'Poppins','Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:14px;-webkit-font-smoothing:antialiased}
 img{max-width:100%}
 [hidden]{display:none !important}
@@ -34,18 +35,37 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:poin
 
 /* Barra */
 .barra-negra{position:sticky;top:0;z-index:20;padding-block:18px;color:#FFF;background:var(--negro)}
-.barra-in{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:16px 40px;flex-wrap:wrap;justify-content:space-between}
+.barra-in{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:16px 40px;flex-wrap:nowrap;justify-content:space-between}
 .logo{color:#FFF;font-size:30px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
 .logo:hover{color:#FFF}
-.barra-der{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;gap:12px 40px}
-.menu{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 26px;font-size:13px;font-weight:400}
+.barra-der{display:flex;flex-wrap:nowrap;justify-content:flex-end;align-items:center;gap:12px 36px}
+.menu{display:flex;flex-wrap:nowrap;justify-content:center;gap:6px 26px;font-size:13px;font-weight:400;white-space:nowrap}
 .menu a,.barra-iconos a{color:#FFF}
 .menu a:hover,.barra-iconos a:hover{color:#D8D2C9}
-.barra-iconos{display:flex;gap:4px;align-items:center;flex-wrap:wrap;justify-content:center}
-.buscador{display:flex;align-items:center;gap:8px;width:220px;padding:7px 14px;max-width:100%;margin-right:12px;border:1px solid rgba(255,255,255,.7);border-radius:999px;background:rgba(20,15,10,.25);color:#FFF}
-.buscador input{flex:1;min-width:0;background:transparent;border:none;outline:none;color:#FFF;font-family:inherit;font-size:13px;font-weight:400}
-.buscador input::placeholder{color:rgba(255,255,255,.7)}
-@media (max-width:760px){.barra-negra{position:relative}.barra-in{justify-content:center}.barra-der{justify-content:center}}
+.barra-iconos{display:flex;gap:4px;align-items:center;flex-wrap:nowrap;justify-content:center}
+.hamburguesa{display:none}
+.buscador{display:none}
+.buscador input{flex:1;min-width:0;background:transparent;border:none;outline:none;color:#FFF;font-family:inherit;font-size:13px;font-weight:300;padding:0}
+.buscador input::placeholder{color:rgba(255,255,255,.55)}
+.buscador input::-webkit-search-cancel-button{filter:invert(1)}
+@media (max-width:860px){
+  .barra-negra{padding-block:12px}
+  .barra-in{flex-wrap:nowrap;justify-content:space-between;gap:12px}
+  .logo{font-size:22px}
+  .hamburguesa{display:flex;flex-direction:column;justify-content:center;gap:6px;width:44px;height:44px;padding:0 10px;margin-right:-10px}
+  .hamburguesa span{display:block;height:1.5px;background:#FFF;transition:transform .35s ease,opacity .25s ease}
+  .barra-negra.abierta .hamburguesa span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+  .barra-negra.abierta .hamburguesa span:nth-child(2){opacity:0}
+  .barra-negra.abierta .hamburguesa span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+  .barra-der{position:absolute;left:0;right:0;top:100%;background:var(--negro);flex-direction:column;align-items:stretch;gap:0;padding:4px max(16px,env(safe-area-inset-left,0px)) 22px;border-top:1px solid rgba(255,255,255,.12);max-height:0;overflow:hidden;opacity:0;visibility:hidden;transition:max-height .45s ease,opacity .3s ease,visibility 0s linear .45s}
+  .barra-negra.abierta .barra-der{max-height:80vh;opacity:1;visibility:visible;transition:max-height .45s ease,opacity .3s ease}
+  .menu{flex-direction:column;align-items:stretch;gap:0;font-size:15px}
+  .menu a{padding:14px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+  .menu .linea::after{display:none}
+  .buscador{display:flex;align-items:center;gap:8px;margin-top:16px;padding:0 0 8px;border-bottom:1px solid rgba(255,255,255,.35);color:rgba(255,255,255,.7)}
+  .buscador input{font-size:16px}
+  .barra-iconos{justify-content:flex-start;padding-top:10px}
+}
 
 /* Sobre mí */
 .sobre{background:#FFF}

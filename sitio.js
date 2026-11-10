@@ -4,6 +4,12 @@
   function $(id) { return document.getElementById(id); }
   function el(tag, cls, txt) { var n = document.createElement(tag); if (cls) n.className = cls; if (txt != null) n.textContent = txt; return n; }
 
+  // ---------- Menú del celular ----------
+  var barra = document.querySelector('.barra-negra'), ham = $('hamburguesa');
+  function menu(abrir) { barra.classList.toggle('abierta', abrir); ham.setAttribute('aria-expanded', abrir ? 'true' : 'false'); ham.setAttribute('aria-label', abrir ? 'Cerrar menú' : 'Abrir menú'); }
+  ham.addEventListener('click', function () { menu(!barra.classList.contains('abierta')); });
+  Array.prototype.forEach.call(document.querySelectorAll('.menu a'), function (a) { a.addEventListener('click', function () { menu(false); }); });
+
   // ---------- Catálogo ----------
   var obras = OBRAS.map(function (o, k) {
     var nn = String(k + 1).padStart(2, '0');
@@ -46,16 +52,17 @@
     grilla.appendChild(item);
   });
 
-  // Buscador
+  // Buscador (dentro del menú del celular)
   $('buscar').addEventListener('input', function (e) {
-    var q = e.target.value.trim().toLowerCase();
-    var visibles = 0;
+    var q = e.target.value.trim().toLowerCase(), visibles = 0;
     Array.prototype.forEach.call(grilla.children, function (n) {
       var ok = !q || n.dataset.titulo.indexOf(q) !== -1;
       n.hidden = !ok; if (ok) visibles++;
     });
     $('sin-resultados').hidden = visibles > 0;
-    if (q) $('serie').scrollIntoView({ behavior: sinMov ? 'auto' : 'smooth' });
+  });
+  $('buscar').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') { e.preventDefault(); menu(false); this.blur(); $('serie').scrollIntoView({ behavior: sinMov ? 'auto' : 'smooth' }); }
   });
 
   // ---------- Ficha ampliada ----------
